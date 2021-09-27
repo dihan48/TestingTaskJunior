@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,12 +17,8 @@ namespace TestingTaskJunior
         private CameraBorder border;
         private bool useBorder;
         private Vector2 mousePos;
-        private Vector2 startMousePos;
-        private Vector3 camPos;
         private Vector3 mouseDelta;
-        private Vector2 lerpMouseDelta;
         private float lerpTime = 1;
-        private Vector3 speed;
 
         private void Start()
         {
@@ -32,25 +29,17 @@ namespace TestingTaskJunior
         public void OnStartDrag()
         {
             isDrag = true;
-            startMousePos = mousePos;
-            camPos = transform.position;
         }
 
         public void OnEndDrag()
         {
             isDrag = false;
             lerpTime = 0;
-            camPos = transform.position;
         }
 
         public void OnDrag(InputValue input)
         {
             mousePos = input.Get<Vector2>();
-        }
-
-        public void Onhz(InputValue input)
-        {
-            Debug.Log(input.Get());
         }
 
         private void Update()
@@ -62,7 +51,7 @@ namespace TestingTaskJunior
                 if (useBorder)
                     transform.position = border.StayBorder(transform.position);
             }
-            if (isDrag == false && lerpTime < 1)
+            else if (lerpTime < 1)
             {
                 lerpTime += Time.deltaTime / lerpScale;
                 mouseDelta = Vector2.Lerp(mouseDelta, Vector2.zero, lerpTime);
