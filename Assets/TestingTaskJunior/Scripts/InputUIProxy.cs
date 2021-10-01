@@ -43,14 +43,21 @@ namespace TestingTaskJunior
 
         private void Update()
         {
-            if(isTouch0Changed && isTouch0 && isTouch1 == false)
+            if (isTouch0Changed)
             {
-                var pointerEventData = new PointerEventData(eventSystem);
-                pointerEventData.position = pos0;
-                var results = new List<RaycastResult>();
-                raycaster.Raycast(pointerEventData, results);
-                isTouchUI = results.Count > 0;
-                playerInput.uiInputModule.enabled = isTouchUI;
+                if (touchCount == 1)
+                {
+                    var pointerEventData = new PointerEventData(eventSystem);
+                    pointerEventData.position = pos0;
+                    var results = new List<RaycastResult>();
+                    raycaster.Raycast(pointerEventData, results);
+                    isTouchUI = results.Count > 0;
+                    playerInput.uiInputModule.enabled = isTouchUI;
+                }
+                else if (touchCount == 0)
+                {
+                    playerInput.uiInputModule.enabled = true;
+                }
             }
 
             if (isTouch1Changed && isTouch0 && isTouch1)
@@ -77,7 +84,7 @@ namespace TestingTaskJunior
                 }
             }
 
-            if(isTouchUI && touchCount == 0)
+            if (isTouchUI && touchCount == 0)
                 isTouchUI = false;
 
             isTouch0Changed = false;
