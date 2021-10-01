@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TestingTaskJunior
@@ -14,7 +12,6 @@ namespace TestingTaskJunior
         [SerializeField]
         private Vector2 spritePivot = new Vector2(0, 1);
 
-
         private Vector2 size;
 
         public Vector2 Size => size;
@@ -23,14 +20,12 @@ namespace TestingTaskJunior
 
         private void Start()
         {
-            Genarate();
+            Genarate(mapJson.text);
         }
 
-        private void Genarate()
+        private void Genarate(string mapJson)
         {
-            if (mapJson == null)
-                throw new NullReferenceException("mapJson");
-            var mapInfo = JsonUtility.FromJson<MapInfo>(mapJson.text);
+            var mapInfo = JsonUtility.FromJson<MapInfo>(mapJson);
             if (mapInfo.List == null)
                 Debug.LogError("Map format error");
             size = GetSize(mapInfo);

@@ -6,49 +6,49 @@
             "id": "ee116888-0eb4-47c9-8211-4da99b7240ab",
             "actions": [
                 {
-                    "name": "StartDrag",
-                    "type": "Button",
-                    "id": "49e5945d-44b2-45d1-bd89-96835f48598c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Drag",
                     "type": "Value",
-                    "id": "4bb67aa0-1f8c-4e7e-a324-43934940bb95",
+                    "id": "65acec24-85e8-41ab-8d49-cc360f3fba42",
                     "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "EndDrag",
-                    "type": "Button",
-                    "id": "12f12e38-dc9e-4d0b-ba76-786760728096",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
                     "name": "Zoom",
                     "type": "Value",
-                    "id": "2836fe7d-f7e5-41ba-a041-a3d853ae9d81",
+                    "id": "c90ea709-4fac-4a59-b227-e3ba130b85a9",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
                 {
                     "name": "Touch0",
-                    "type": "Value",
-                    "id": "1c15f050-8027-46d1-bf71-66086bac0a49",
-                    "expectedControlType": "Vector2",
+                    "type": "Button",
+                    "id": "5c11a661-02f2-4ada-93eb-273830d0ba6d",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
                     "name": "Touch1",
+                    "type": "Button",
+                    "id": "5b4c6db5-3e67-4ee6-acd1-9f57b22e1e6c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DragTouch0",
                     "type": "Value",
-                    "id": "d72196f8-8e86-4dde-89eb-8cdf8866d01f",
+                    "id": "e9c674c3-b5f7-4888-a839-dbbbad21a17c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DragTouch1",
+                    "type": "Value",
+                    "id": "d38d769b-5bac-4607-a5ab-4d3a433dd3a7",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
@@ -57,18 +57,18 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "b81cfe38-24f7-4a9c-a79e-fac658e745d0",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press(behavior=1)",
+                    "id": "007c35ee-3871-4fbb-93e7-158389f5816c",
+                    "path": "<Touchscreen>/touch1/position",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EndDrag",
+                    "action": "DragTouch1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "0198ac43-a865-4737-b370-1df52f35230a",
+                    "id": "41582556-2815-475d-96e3-442c7ec631fd",
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
@@ -79,40 +79,7 @@
                 },
                 {
                     "name": "",
-                    "id": "429ed8f1-3914-4c2a-a3ac-e1309a5e54e6",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f57ed40e-c6c4-4a7d-b8b1-6fcaa79c84fe",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StartDrag",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "63d71305-a048-463f-9057-7100111f6108",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StartDrag",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5a111bb1-e262-4e1b-acd9-eaf99cc20e00",
+                    "id": "4fe018f8-4000-4f6e-8a68-d729e6b5cb00",
                     "path": "<Touchscreen>/primaryTouch/delta",
                     "interactions": "",
                     "processors": "",
@@ -123,20 +90,9 @@
                 },
                 {
                     "name": "",
-                    "id": "1bedc758-12d0-419b-b787-8b8f476c59bc",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "Press(behavior=1)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EndDrag",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2afdc007-a8ab-457f-b63d-d317d9f8107b",
-                    "path": "<Touchscreen>/touch0/position",
-                    "interactions": "",
+                    "id": "265b32c2-178f-43cc-8d4b-cd36eb50901d",
+                    "path": "<Touchscreen>/touch0/press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Touch0",
@@ -145,12 +101,45 @@
                 },
                 {
                     "name": "",
-                    "id": "f8882b03-be53-48e0-aaa9-275566e69dec",
-                    "path": "<Touchscreen>/touch1/position",
-                    "interactions": "",
+                    "id": "ca8bf2fa-033e-4c46-b49b-d31b9f7ab858",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "022f35d8-f977-419e-aa23-f28cd64718d7",
+                    "path": "<Touchscreen>/touch1/press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Touch1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ae852ad-9eca-4b03-a729-33d15dcacf07",
+                    "path": "<Touchscreen>/touch0/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragTouch0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e13a9cea-6f5a-4fd8-a667-e95f301dbf38",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -161,14 +150,6 @@
             "id": "616a4643-9b6a-4797-ba76-bb855a374b7a",
             "actions": [
                 {
-                    "name": "StartDrag",
-                    "type": "Button",
-                    "id": "0a05f04e-1ba1-4209-ae83-89011c10d46f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Drag",
                     "type": "Value",
                     "id": "4c2d830e-7cee-41fe-898b-c418f2fa61ec",
@@ -177,42 +158,39 @@
                     "interactions": ""
                 },
                 {
-                    "name": "EndDrag",
-                    "type": "Button",
-                    "id": "52614126-68c5-4641-a1f2-cf9357b2fe27",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Touch0",
                     "type": "Value",
-                    "id": "3e78f2cb-5784-4646-8105-007fea1e3a4b",
-                    "expectedControlType": "Vector2",
+                    "id": "b6597b7d-6e32-4305-93c0-fdfc4c4fcaa3",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
                 {
                     "name": "Touch1",
                     "type": "Value",
-                    "id": "8ef0d895-f0a2-4222-8967-c0fae63ad288",
+                    "id": "c46e4eb9-5009-470c-910b-98ca125897ec",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DragTouch0",
+                    "type": "Value",
+                    "id": "76886349-4d18-4ab7-8811-67eb1803ecb2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DragTouch1",
+                    "type": "Value",
+                    "id": "a1a6a4b1-934c-4f7c-b6f7-d717a2296b93",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "756de378-4419-4df8-8c7b-480dd82d45af",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StartDrag",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "2d8d6d95-0111-4ff0-8e6f-f0c3bd870890",
@@ -226,8 +204,30 @@
                 },
                 {
                     "name": "",
-                    "id": "b2dfb7e1-0ef7-40e8-88fe-b605c6c7f6a3",
+                    "id": "9f7f2eb3-0521-4d9a-aa84-04c2bd3db3cd",
                     "path": "<Touchscreen>/touch1/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragTouch1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45ff816d-dcb4-4f9d-9f0b-d9da9457803e",
+                    "path": "<Touchscreen>/touch0/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragTouch0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d3158c7f-f7d9-4728-9413-12bebf4c6fb1",
+                    "path": "<Touchscreen>/touch1/phase",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -237,19 +237,8 @@
                 },
                 {
                     "name": "",
-                    "id": "a40fc2d9-0524-4e32-a115-8fd9069f56bd",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "Press(behavior=1)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EndDrag",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d7d25981-f798-48f1-9e05-769e4c3a4f6f",
-                    "path": "<Touchscreen>/touch0/position",
+                    "id": "65f2ca31-e94d-4087-b367-1ff5019a694d",
+                    "path": "<Touchscreen>/touch0/phase",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

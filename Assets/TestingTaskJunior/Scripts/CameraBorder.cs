@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TestingTaskJunior
@@ -16,25 +14,14 @@ namespace TestingTaskJunior
 
         private float minX, maxX, minY, maxY;
 
-        public float MinX => minX;
-        public float MaxX => maxX;
-        public float MinY => minY;
-        public float MaxY => maxY;
+        public event Action OnChanged;
 
         private void OnEnable()
         {
-            if (map == null)
-                throw new NullReferenceException("map");
-
+            TryGetComponent(out cam);
             map.OnGenerated += SetBorderSize;
-
             if (TryGetComponent(out cameraZoom))
                 cameraZoom.OnZoomed += SetBorderSize;
-        }
-
-        private void Start()
-        {
-            TryGetComponent(out cam);
         }
 
         private void OnDisable()
@@ -56,13 +43,15 @@ namespace TestingTaskJunior
 
             minY = pos.y - size.y / 2 + orthographicSize;
             maxY = pos.y + size.y / 2 - orthographicSize;
+
+            OnChanged?.Invoke();
         }
 
         public Vector3 StayBorder(Vector3 pos)
         {
             pos.Set(
-                Mathf.Clamp(pos.x, MinX, maxX),
-                Mathf.Clamp(pos.y, MinY, maxY),
+                Mathf.Clamp(pos.x, minX, maxX),
+                Mathf.Clamp(pos.y, minY, maxY),
                 pos.z);
             return pos;
         }

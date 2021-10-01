@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,60 +7,103 @@ namespace TestingTaskJunior
     public class CameraMovement : MonoBehaviour
     {
         [SerializeField]
-        private float lerpScale = 5;
+        private float amountSmoothingTime = 2;
+        [SerializeField]
+        private float maxSmoothingVelocity = 0.2f;
 
-        private bool isDrag = false;
         private Camera cam;
         private CameraBorder border;
-        private bool useBorder;
-        private Vector2 mousePos;
-        private Vector3 mouseDelta;
-        private float lerpTime = 1;
+        private int touchCount = 0;
+        private Vector2 dragDelta;
+        private Vector2 startSmoothingVelocity;
+        private bool isDrag = false;
+        private float smoothingTime;
+        private bool isSmoothing;
 
-        private void Start()
+        public bool IsSmoothing { 
+            get => isSmoothing;
+            set 
+            {
+                isSmoothing = value;
+                if(value)
+                    smoothingTime = 0;
+            }
+        }
+
+        private void OnEnable()
         {
             TryGetComponent(out cam);
-            useBorder = TryGetComponent(out border);
+            if(TryGetComponent(out border))
+                border.OnChanged += StayBorder;
         }
 
-        public void OnStartDrag()
+        private void OnDisable()
         {
-            isDrag = true;
-        }
-
-        public void OnEndDrag()
-        {
-            isDrag = false;
-            lerpTime = 0;
-        }
-
-        public void OnDrag(InputValue input)
-        {
-            mousePos = input.Get<Vector2>();
+            if(border != null)
+                border.OnChanged -= StayBorder;
         }
 
         private void Update()
         {
             if (isDrag)
             {
-                mouseDelta = ViewporToUnits(cam.ScreenToViewportPoint(mousePos));
-                transform.Translate(-mouseDelta);
-                if (useBorder)
-                    transform.position = border.StayBorder(transform.position);
+                var offset = cam.ViewportToWorldPoint(new Vector2(0, 0)) - cam.ScreenToWorldPoint(dragDelta);
+                startSmoothingVelocity = Vector2.ClampMagnitude(offset, maxSmoothingVelocity) / Time.deltaTime;
+                IsSmoothing = true;
+                Move(offset);
             }
-            else if (lerpTime < 1)
+            else if (IsSmoothing)
             {
-                lerpTime += Time.deltaTime / lerpScale;
-                mouseDelta = Vector2.Lerp(mouseDelta, Vector2.zero, lerpTime);
-                transform.Translate(-mouseDelta);
-                if (useBorder)
-                    transform.position = border.StayBorder(transform.position);
+                smoothingTime += Time.deltaTime / amountSmoothingTime;
+                if (smoothingTime >= 1)
+                    IsSmoothing = false;
+                var smoothingVelocity = Vector2.Lerp(startSmoothingVelocity, Vector2.zero, smoothingTime);
+                Move(smoothingVelocity * Time.deltaTime);
             }
         }
 
-        private Vector3 ViewporToUnits(Vector3 viewPoint)
+        public void OnTouch0(InputValue input)
         {
-            return new Vector3(viewPoint.x * cam.orthographicSize * 2 * cam.aspect, viewPoint.y * cam.orthographicSize * 2);
+            if (input.Get<float>() == 1)
+            {
+                touchCount++;
+                isDrag = (touchCount == 1);
+                IsSmoothing = false;
+            }
+            else
+            {
+                touchCount--;
+                isDrag = false;
+                IsSmoothing = (touchCount == 0);
+            }
+        }
+
+        public void OnTouch1(InputValue input)
+        {
+            if (input.Get<float>() == 1)
+                touchCount++;
+            else
+                touchCount--;
+            isDrag = false;
+            IsSmoothing = false;
+        }
+
+        public void OnDrag(InputValue input)
+        {
+            dragDelta = input.Get<Vector2>();
+        }
+
+        private void Move(Vector3 offset)
+        {
+            if (border != null)
+                transform.position = border.StayBorder(transform.position + offset);
+            else
+                transform.Translate(offset);
+        }
+
+        private void StayBorder()
+        {
+            transform.position = border.StayBorder(transform.position);
         }
     }
 }
