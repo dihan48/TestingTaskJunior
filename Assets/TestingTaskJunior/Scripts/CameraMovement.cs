@@ -13,14 +13,12 @@ namespace TestingTaskJunior
 
         private Camera cam;
         private CameraBorder border;
-        private int touchCount = 0;
-        private Vector2 dragDelta;
         private Vector2 startSmoothingVelocity;
-        private bool isDrag = false;
         private float smoothingTime;
         private bool isSmoothing;
+        private InputHandler inputHandler;
 
-        public bool IsSmoothing { 
+        public bool UseSmoothing { 
             get => isSmoothing;
             set 
             {
@@ -33,6 +31,11 @@ namespace TestingTaskJunior
         private void OnEnable()
         {
             TryGetComponent(out cam);
+            if(TryGetComponent(out inputHandler))
+            {
+                inputHandler.OnDragStarted += Drag;
+                inputHandler.OnDragStoped += Smoothing;
+            }
             if(TryGetComponent(out border))
                 border.OnChanged += StayBorder;
         }
@@ -41,57 +44,34 @@ namespace TestingTaskJunior
         {
             if(border != null)
                 border.OnChanged -= StayBorder;
+            if(inputHandler)
+            {
+                inputHandler.OnDragStarted -= Drag;
+                inputHandler.OnDragStoped -= Smoothing;
+            }
         }
 
         private void Update()
         {
-            if (isDrag)
-            {
-                var offset = cam.ViewportToWorldPoint(new Vector2(0, 0)) - cam.ScreenToWorldPoint(dragDelta);
-                startSmoothingVelocity = Vector2.ClampMagnitude(offset, maxSmoothingVelocity) / Time.deltaTime;
-                IsSmoothing = true;
-                Move(offset);
-            }
-            else if (IsSmoothing)
+            if (UseSmoothing)
             {
                 smoothingTime += Time.deltaTime / amountSmoothingTime;
                 if (smoothingTime >= 1)
-                    IsSmoothing = false;
+                    UseSmoothing = false;
                 var smoothingVelocity = Vector2.Lerp(startSmoothingVelocity, Vector2.zero, smoothingTime);
                 Move(smoothingVelocity * Time.deltaTime);
             }
         }
 
-        public void OnTouch0(InputValue input)
+        public void Drag(Vector2 dragDelta)
         {
-            if (input.Get<float>() == 1)
-            {
-                touchCount++;
-                isDrag = (touchCount == 1);
-                IsSmoothing = false;
-            }
-            else
-            {
-                touchCount--;
-                isDrag = false;
-                IsSmoothing = (touchCount == 0);
-            }
+            var offset = cam.ViewportToWorldPoint(new Vector2(0, 0)) - cam.ScreenToWorldPoint(dragDelta);
+            startSmoothingVelocity = Vector2.ClampMagnitude(offset, maxSmoothingVelocity) / Time.deltaTime;
+            UseSmoothing = true;
+            Move(offset);
         }
 
-        public void OnTouch1(InputValue input)
-        {
-            if (input.Get<float>() == 1)
-                touchCount++;
-            else
-                touchCount--;
-            isDrag = false;
-            IsSmoothing = false;
-        }
-
-        public void OnDrag(InputValue input)
-        {
-            dragDelta = input.Get<Vector2>();
-        }
+        public void Smoothing(bool value) => UseSmoothing = value;
 
         private void Move(Vector3 offset)
         {
