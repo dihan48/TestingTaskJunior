@@ -16,7 +16,7 @@ namespace TestingTaskJunior
         private Vector2 startSmoothingVelocity;
         private float smoothingTime;
         private bool isSmoothing;
-        private InputHandler inputHandler;
+        private InputUIProxy inputHandler;
 
         public bool UseSmoothing { 
             get => isSmoothing;
@@ -33,7 +33,7 @@ namespace TestingTaskJunior
             TryGetComponent(out cam);
             if(TryGetComponent(out inputHandler))
             {
-                inputHandler.OnDragStarted += Drag;
+                inputHandler.OnDraged += Drag;
                 inputHandler.OnDragStoped += Smoothing;
             }
             if(TryGetComponent(out border))
@@ -46,7 +46,7 @@ namespace TestingTaskJunior
                 border.OnChanged -= StayBorder;
             if(inputHandler)
             {
-                inputHandler.OnDragStarted -= Drag;
+                inputHandler.OnDraged -= Drag;
                 inputHandler.OnDragStoped -= Smoothing;
             }
         }

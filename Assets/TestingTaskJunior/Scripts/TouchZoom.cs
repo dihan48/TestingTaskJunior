@@ -12,7 +12,7 @@ namespace TestingTaskJunior
         private float amountSmoothingTime = 6;
 
         private CameraZoom cameraZoom;
-        private InputHandler inputHandler;
+        private InputUIProxy inputHandler;
 
         private float zoom;
         private float startZoom;
@@ -29,16 +29,26 @@ namespace TestingTaskJunior
             {
                 cameraZoom.OnInitZoom += SetStartZoom;
             }
-            if(TryGetComponent(out inputHandler))
+            if (TryGetComponent(out inputHandler))
             {
-                inputHandler.OnMultiDragStarted += Zoom;
+                inputHandler.OnMultiDragStarted += StartZoom;
+                inputHandler.OnMultiDraged += Zoom;
             }
         }
 
         private void OnDisable()
         {
             if (cameraZoom != null)
+            {
+                inputHandler.OnMultiDragStarted -= StartZoom;
                 cameraZoom.OnInitZoom -= SetStartZoom;
+            }
+        }
+
+        private void StartZoom()
+        {
+            startDeltaTouches = 0;
+            startZoom = zoom;
         }
 
         private void Zoom(float delta)

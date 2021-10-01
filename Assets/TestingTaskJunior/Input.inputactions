@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "DragTouch0",
+                    "name": "PosTouch0",
                     "type": "Value",
                     "id": "e9c674c3-b5f7-4888-a839-dbbbad21a17c",
                     "expectedControlType": "Vector2",
@@ -46,7 +46,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "DragTouch1",
+                    "name": "PosTouch1",
                     "type": "Value",
                     "id": "d38d769b-5bac-4607-a5ab-4d3a433dd3a7",
                     "expectedControlType": "Vector2",
@@ -62,7 +62,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "DragTouch1",
+                    "action": "PosTouch1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -128,7 +128,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "DragTouch0",
+                    "action": "PosTouch0",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -140,6 +140,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4feafa7-240f-4081-8852-d5176b3b2e0a",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PosTouch0",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
