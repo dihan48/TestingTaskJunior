@@ -19,19 +19,21 @@ namespace TestingTaskJunior
         private void OnEnable()
         {
             TryGetComponent(out cam);
-            map.OnGenerated += SetBorderSize;
+            map.OnGenerated += ChangeBorderSize;
             if (TryGetComponent(out cameraZoom))
-                cameraZoom.OnZoomed += SetBorderSize;
+                cameraZoom.OnZoomed += ChangeBorderSize;
+            ScreenResolution.OnChanged += ChangeBorderSize;
         }
 
         private void OnDisable()
         {
-            map.OnGenerated -= SetBorderSize;
+            map.OnGenerated -= ChangeBorderSize;
             if(cameraZoom != null)
-                cameraZoom.OnZoomed -= SetBorderSize;
+                cameraZoom.OnZoomed -= ChangeBorderSize;
+            ScreenResolution.OnChanged -= ChangeBorderSize;
         }
 
-        private void SetBorderSize()
+        private void ChangeBorderSize()
         {
             var pos = map.transform.position;
             var size = map.Size;

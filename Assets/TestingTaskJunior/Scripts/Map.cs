@@ -46,6 +46,8 @@ namespace TestingTaskJunior
 
                 var spriteRenderer = cell.AddComponent<SpriteRenderer>();
                 spriteRenderer.sprite = sprite;
+
+                var collider = cell.AddComponent<BoxCollider>();
             }
 
             OnGenerated?.Invoke();
